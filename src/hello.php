@@ -1,12 +1,26 @@
 <?php
-namespace src;
+namespace HelloTexan;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Stichoza\GoogleTranslate\TranslateClient;
 
-$tr = new TranslateClient(); // Default is from 'auto' to 'en'
-$tr->setSource('en'); // Translate from English
-$tr->setTarget('es'); // Translate to Spanish
+class Hello
+{
+    protected $translateClient;
 
-echo $tr->translate('Hello Texan!');
-echo "\n";
+    public function __construct(TranslateClient $translateClient)
+    {
+        $this->translateClient = $translateClient;
+    }
+
+    public function say()
+    {
+        $this->translateClient->setSource('en');
+        $this->translateClient->setTarget('es');
+
+        $output = $this->translateClient->translate('Hello');
+
+        echo "$output\n";
+    }
+}
